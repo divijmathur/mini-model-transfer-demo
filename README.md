@@ -16,9 +16,4 @@ This demo reproduces that workflow in miniature form using Hugging Face Transfor
 
 ---
 
-## ⚙️ How It Works
 
-### Step 1 — Fine-Tune
-Train a lightweight model on IMDb data:
-```bash
-python scripts/train.py
