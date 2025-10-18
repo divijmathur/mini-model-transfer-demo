@@ -1,6 +1,6 @@
 # Mini Model Transfer Demo
 
-This project simulates how a **research-trained model** is operationalized, versioned, documented, and validated for partner transfer — similar to how a Technical Program Manager on OpenAI’s Research IP Partnerships team might coordinate an IP hand-off to Microsoft.
+This project simulates how a **research-trained model** is operationalized, versioned, documented, and validated for partner transfer.
 
 ---
 
