@@ -16,28 +16,89 @@ This demo reproduces that workflow in miniature form using Hugging Face Transfor
 
 ---
 
+## ⚙️ Quickstart
 
-=======
-# Mini Model Transfer Pipeline
+Create and activate a virtualenv, then install:
+```bash
+pip install -r requirements.txt
+```
 
-This project simulates an internal Research-to-Partner IP transfer flow.
+### Train & Save
+```bash
+python scripts/train.py
+```
 
-## Overview
-We fine-tune a DistilBERT model on IMDb movie reviews (5k sample), generate documentation and metadata, and export a reproducible model bundle suitable for sharing with a partner (like Microsoft).
+### Export (version bump + checksum + validation)
+```bash
+python scripts/export_bundle.py
+```
 
-## Steps
-1. `python scripts/train.py` – trains and saves model
-2. `python scripts/export_bundle.py` – creates versioned export bundle with checksum and log
-3. Output found in `partner_exports/v1.0.0/`
+### Sanity-Check Accuracy
+```bash
+python scripts/eval.py
+```
 
-## Structure
-- `/model` → Model weights, config, tokenizer, docs  
-- `/partner_exports` → Packaged versioned zip bundle  
-- `/scripts` → Training, evaluation, and export automation  
+---
 
-## Purpose
-Demonstrate:
-- IP transfer reproducibility
-- Documentation standardization
-- Automation and version control for research artifacts
+## 📦 Versioned Exports
 
+Each export creates:
+```
+partner_exports/
+└── vX.Y.Z/
+    ├── model_bundle.zip
+    ├── checksum.txt
+    └── transfer_log.json
+```
+
+All exports append a record to:
+```
+partner_exports/exports_history.jsonl
+```
+
+---
+
+## 🗂 Structure
+```
+mini-model-transfer-demo/
+├── model/
+│   ├── config.json
+│   ├── model.safetensors
+│   └── model_card.md
+├── scripts/
+│   ├── train.py
+│   ├── eval.py
+│   └── export_bundle.py
+├── partner_exports/
+│   └── v1.0.2/
+├── requirements.txt
+├── LICENSE
+└── README.md
+```
+
+---
+
+## 🔎 Reproducibility & Audit
+
+- **Checksum**: SHA-256 on the exported bundle
+- **Validation**: `export_bundle.py` runs `eval.py` and captures accuracy
+- **Audit trail**: JSONL log with `{version, timestamp, checksum, validation_output}`
+
+---
+
+## 🌐 Why This Matters
+
+For research partnerships, speed and control must coexist.  
+This repo demonstrates how to **automate reproducibility and IP governance** without slowing down research velocity — mirroring the IP hand-off rigor used for external partners.
+
+---
+
+## 📝 Notes
+
+- Large artifacts are tracked with **Git LFS** via `.gitattributes`.
+- Example dataset: IMDb (subset). Model: `distilbert-base-uncased`.
+- For screenshots, add images to `docs/` and embed them here.
+
+---
+
+**Author**: Divij Mathur
